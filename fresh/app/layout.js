@@ -17,9 +17,10 @@ export default function RootLayout({ children }) {
         <div className="navbar">
           <Link href="/">home</Link>
           <Link href="/list">list페이지</Link>
+          <Link href="/cart">cart페이지</Link>
         </div>
 
-        {/* page.js 들어가는 부분 */}
+        {/* page.js가 들어가는 부분 */}
         {children}
           
       </body>
