@@ -9,9 +9,8 @@ export default function Cart() {
     <div>
       <h4 className="title">Cart</h4>
       {Hello()}
-      <CartItem 장바구니={장바구니[0]} />
-      <CartItem 장바구니={장바구니[1]}/>
-      
+      <CartItem item={장바구니[0]} />
+      <CartItem item={장바구니[1]}/>
     </div>
   )
 }
@@ -19,7 +18,7 @@ export default function Cart() {
 function CartItem(props) {
   return(
     <div className="cart-item">
-        <p>{ props.장바구니 }</p>
+        <p>상품명 { props.item }</p>
         <p>$40</p>
         <p>1개</p>
     </div>
