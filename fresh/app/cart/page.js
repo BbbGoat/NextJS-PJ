@@ -11,6 +11,9 @@ export default function Cart() {
       {Hello()}
       <CartItem item={장바구니[0]} />
       <CartItem item={장바구니[1]}/>
+      <Banner content={'현대카드'} />
+      <Banner content={'신한카드'} />
+      <Btn color={'skyblue'}/>
     </div>
   )
 }
@@ -23,4 +26,14 @@ function CartItem(props) {
         <p>1개</p>
     </div>
   )
+}
+
+function Banner(props) {
+  return(
+    <h5>{props.content} 결제 행사중</h5>
+  )
+}
+
+function Btn(props){
+  return <button style={{ background : props.color }}>버튼임</button>
 }
