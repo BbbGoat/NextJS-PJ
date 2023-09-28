@@ -39,3 +39,8 @@ button {
     border: none;
     border-radius: 5px;
 }
+
+.list-item {
+    opacity: 1;
+    transition: all 1s;
+}
