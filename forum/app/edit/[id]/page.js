@@ -10,9 +10,10 @@ export default async function Edit(props) {
     return (
       <div className="p-20">
         <h4>수정페이지</h4>
-        <form action="어쩌구" method="POST">
+        <form action="/api/post/edit" method="POST">
           <input name="title" defaultValue={result.title} />
           <input name="content" defaultValue={result.content} />
+          <input style={{display: 'none'}} name="_id" defaultValue={result._id.toString()} />
           <button type="submit">전송</button>
         </form>
       </div>
