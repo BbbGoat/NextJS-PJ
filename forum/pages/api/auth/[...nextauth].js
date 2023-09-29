@@ -1,5 +1,8 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+// session 사용하기 위한 adapter 라이브러리
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import { connectDB } from "@/app/util/database";
 
 export const authOptions = {
   providers: [
@@ -9,6 +12,6 @@ export const authOptions = {
     }),
   ],
   secret : 'secret2583pw',
-  adapter : MongoDBAdapter()
+  adapter : MongoDBAdapter(connectDB)
 };
 export default NextAuth(authOptions); 
