@@ -17,10 +17,12 @@ export default async function handler(요청, 응답) {
             if (찾은거.author == session.user.email) {
                 let result = await db.collection('post').deleteOne({_id : new ObjectId(요청.body)})
                 console.log(result)
-                응답.status(200).json('삭제완료')
+                return 응답.status(200).json('삭제완료')
             } else {
-                응답.status(500).json('현재유저와 작성자 불일치')
+                return 응답.status(500).json('현재유저와 작성자 불일치')
             }
+        } else {
+            return 응답.status(500).json('로그인하세요!')
         }
     }
 }
