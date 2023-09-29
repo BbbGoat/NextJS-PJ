@@ -16,7 +16,7 @@ export default function ListItem({result}) {
                         <span onClick={(e)=>{
                             fetch('/api/post/delete', {
                                 method : 'DELETE',
-                                body : a._id
+                                body : a._id.toString()
                             })
                             .then((r)=>{return r.json()})
                             .then((r)=>{
