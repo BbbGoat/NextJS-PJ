@@ -4,12 +4,17 @@ import DetailLink from "@/app/list/DetailLink";
 import Comment from "./Comment";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { notFound } from "next/navigation";
 
 export default async function Detail(props) {
     const client = await connectDB;
     const db = client.db('forum')
     let result = await db.collection('post').findOne({ _id: new ObjectId(props.params.slot) })
     console.log(props.params.slot)
+
+    if (result === null) {
+        return notFound()
+    }
     
     // 로그인한 유저만 작성 가능
     let session = await getServerSession(authOptions);
