@@ -16,9 +16,9 @@ export default async function handler(요청, 응답) {
 
         if (!session) return 응답.status(500).json('로그인해주세요!')
         
-        if (!요청.body.comment) {
-            return 응답.status(500).json('내용을 입력해주세요.')
-        }
+        // if (요청.body.comment == '') {
+        //     return 응답.status(500).json('내용을 입력해주세요.')
+        // }
 
         
         let 저장할거 = {
