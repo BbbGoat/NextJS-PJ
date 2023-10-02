@@ -5,6 +5,7 @@ import LoginBtn from './LoginBtn'
 import LogoutBtn from './LogoutBtn'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
+import { Cookies, cookies } from 'next/headers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,6 +19,8 @@ export default async function RootLayout({ children }) {
   // 현재 로그인한 유저이름, 이메일 등이 남음
   let session = await getServerSession(authOptions)
   console.log(session)
+
+  let res = cookies().get('name')
   
   return (
     <html lang="en">
