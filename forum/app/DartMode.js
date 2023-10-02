@@ -24,8 +24,8 @@ export default function DarkMode(){
 
             let cookie = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]
 
+            // mode 쿠키 수정하기
             if (cookie == 'light') {
-                // mode 쿠키 수정하기
                 document.cookie = 'mode=dark; max-age=' + (3600 * 24 * 400)
                 document.cookie = 'modeIcon=☀️; max-age=' + (3600 * 24 * 400)
                 router.refresh()
