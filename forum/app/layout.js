@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Cookie, Inter } from 'next/font/google'
 import LoginBtn from './LoginBtn'
 import LogoutBtn from './LogoutBtn'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import { Cookies, cookies } from 'next/headers'
-import DarkMode from './DartMode'
+import DarkMode from './DarkMode'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,12 +19,12 @@ export default async function RootLayout({ children }) {
 
   // 현재 로그인한 유저이름, 이메일 등이 남음
   let session = await getServerSession(authOptions)
-  console.log(session)
+  // console.log(session)
 
   // 쿠키 불러오기
   let res = cookies().get('mode')
-  console.log(res)
-  
+  let modeIcon = cookies().get('modeIcon')
+
   return (
     <html lang="en">
       <body className={ res != undefined && res.value == 'dark' ? "dark-mode" : '' }>
@@ -37,7 +37,7 @@ export default async function RootLayout({ children }) {
             session ? <span>Welcome {session.user.name}🤚 <LogoutBtn /></span> : <LoginBtn />
           }
           {/* <img src={session.user.image} alt='유저프로필' width={'50px'} height={'100%'} /> */}
-          <DarkMode />
+          <DarkMode icon={modeIcon != undefined ? modeIcon : 'moon'}/>
         </div>
         {children}
       </body>
