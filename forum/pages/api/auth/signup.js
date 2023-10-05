@@ -1,6 +1,7 @@
 import { connectDB } from "@/app/util/database";
 import bcrypt from 'bcrypt'
 
+// register에서 회원가입 요청하는 API
 export default async function handler(요청, 응답) {
     if (요청.method == 'POST') {
         const client = await connectDB;

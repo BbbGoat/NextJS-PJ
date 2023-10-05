@@ -67,6 +67,7 @@ export const authOptions = {
   
   // session방식 사용하는 법
   adapter : MongoDBAdapter(connectDB),
-  secret : 'secret2583pw',
+  secret : process.env.NEXTAUTH_SECRET,
+  // secret : 'secret2583pw'process.env.SECRET_KEY,
 };
 export default NextAuth(authOptions); 

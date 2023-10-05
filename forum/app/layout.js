@@ -5,7 +5,7 @@ import LoginBtn from './LoginBtn'
 import LogoutBtn from './LogoutBtn'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
-import { Cookies, cookies } from 'next/headers'
+import { cookies } from 'next/headers'
 import DarkMode from './DarkMode'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -37,7 +37,7 @@ export default async function RootLayout({ children }) {
             session ? <span>Welcome {session.user.name}🤚 <LogoutBtn /></span> : <LoginBtn />
           }
           {/* <img src={session.user.image} alt='유저프로필' width={'50px'} height={'100%'} /> */}
-          <DarkMode icon={modeIcon != undefined ? modeIcon : 'moon'}/>
+          <DarkMode icon={modeIcon != undefined ? modeIcon : ''}/>
         </div>
         {children}
       </body>

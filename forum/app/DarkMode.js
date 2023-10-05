@@ -16,10 +16,11 @@ export default function DarkMode(props){
         }
     },[])
     
+    // !!!! useEffect 외부에서 document 사용 이슈로 인해 아래 두줄 코드 주석 처리하고 재수정함
     // let modeIcon = ('; ' + document.cookie).split(`; modeIcon=`).pop().split(';')[0]
     // let modeIcon = (props.icon)
+    
     let modeIcon = props.icon.value
-    // console.log(props.icon.value)
     let [icon, setIcon] = useState(modeIcon === 'moon' ? '🌙' : '☀️');
     
     return (
