@@ -39,7 +39,7 @@ const Input = ({
   const handleChange = (e) => {
     setInputValue(e.target.value);
 
-    // 파라미터에 event 객체만 내려주면 됨 (상위 Input 컴포넌트에서 e => setEmail()하는 함수를 props로 내려줬기 때문에 setEmail 값을 업데이트 해준다)
+    // 파라미터에 event 객체만 내려주면 됨 (상위 Input 컴포넌트에서 e => set변경함수()를 props로 내려줬기 때문에 여기서 값을 업데이트 해준다)
     onChange(e)
   }
 
