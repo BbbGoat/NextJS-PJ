@@ -1,8 +1,8 @@
-import React from 'react'
+import LoginClient from './LoginClient'
 
-const Login = () => {
+const Login = () => {  
   return (
-    <div>Login</div>
+    <LoginClient />
   )
 }
 
