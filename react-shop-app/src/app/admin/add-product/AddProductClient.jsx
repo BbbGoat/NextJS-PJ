@@ -4,6 +4,7 @@ import styles from './AddProduct.module.scss'
 import { useRouter } from 'next/navigation'
 import Loader from '@/components/loader/Loader'
 import Heading from '@/components/heading/Heading'
+import Button from '@/components/button/Button'
 
 
 const categories = [
@@ -99,8 +100,60 @@ const AddProductClient = () => {
                                 placeholder='이미지 URL'
                             />
                         }
-                        
                     </div>
+                    <label>상품 가격:</label>
+                    <input 
+                        type='number'
+                        placeholder='상품 가격'
+                        required
+                        name='price'
+                        value={product.price}
+                        onChange={(e)=>handleInputChange(e)}
+                    />
+                    <label>상품 카테고리:</label>
+                    <select
+                        required
+                        name='category'
+                        value={product.category}
+                        onChange={(e)=>handleInputChange(e)}
+                    >
+                        <option
+                            value=""
+                            disabled
+                        >
+                            -- 상품 카테고리 선택
+                        </option>
+                        {
+                            categories.map((category)=>{
+                                return (
+                                    <option key={category.id} value={category.name}>
+                                        {category.name}
+                                    </option>
+                                )
+                            })
+                        }
+                    </select>
+                    <label>상품 브랜드/회사:</label>
+                    <input 
+                        type='text'
+                        placeholder='상품 브랜드/회사'
+                        name='brand'
+                        value={product.brand}
+                        onChange={(e)=>handleInputChange(e)}
+                    />
+                    <label>상품 설명:</label>
+                    <textarea
+                        name='desc'
+                        value={product.desc}
+                        cols={10}
+                        rows={10}
+                        required
+                        onChange={(e)=>handleInputChange(e)}
+                    >
+                    </textarea>
+                    <Button type='submit'>
+                        상품 생성
+                    </Button>
                 </form>
             </div>
         </>
