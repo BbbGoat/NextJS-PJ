@@ -1,6 +1,9 @@
 'use client'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import sliderData from './SliderData';
+import styles from './Slider.module.scss'
+import {AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai'
+import Image from 'next/image';
 
 const Slider = () => {
   
@@ -22,9 +25,39 @@ const Slider = () => {
       currentSlide === 0 ? sliderLength -1 : currentSlide -1
     );
   }, [currentSlide, sliderLength])
+
+  useEffect(()=>{
+
+    // 자동 넘기기 실행
+    const interval = setInterval(nextSlide, intervalTime)
+    
+    return () => {
+      clearInterval(interval)
+    }
+  }, [nextSlide])
   
   return (
-    <div>Slider</div>
+    <div className={styles.slider}>
+      <AiOutlineArrowLeft className={`${styles.arrow} ${styles.prev}`} onClick={prevSlide} />
+      <AiOutlineArrowRight className={`${styles.arrow} ${styles.next}`} onClick={nextSlide} />
+
+      {sliderData.map((slider, index)=>{
+        const {image, heading} = slider
+        return (
+          <div 
+            key={heading} 
+            className={index === currentSlide ? `${styles.slide} ${styles.current}` : `${styles.slide}`}
+          >
+            {
+              index === currentSlide ?
+              <Image src={image} alt={heading} fill />
+              :
+              null
+            }
+          </div>
+        )
+      })}
+    </div>
   )
 }
 
