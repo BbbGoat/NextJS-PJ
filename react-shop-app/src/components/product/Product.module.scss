@@ -1,0 +1,17 @@
+.product {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px 20px;
+    display: flex;
+    position: relative;
+
+    .filter {
+        width: 20%;
+        transition: all .3s;
+    }
+    .content {
+        width: 1400px;
+        padding-left: 5px;
+        position: relative;
+    }
+}

@@ -5,6 +5,10 @@ import { useRouter } from 'next/navigation'
 import Loader from '@/components/loader/Loader'
 import Heading from '@/components/heading/Heading'
 import Button from '@/components/button/Button'
+import { db, storage } from '@/firebase/firebase'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { toast } from 'react-toastify'
+import { Timestamp, addDoc, collection } from 'firebase/firestore'
 
 
 const categories = [
@@ -45,11 +49,54 @@ const AddProductClient = () => {
     }
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        
+
+        const storageRef = ref(storage, `images/${Date.now()}${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        // onStateChanged 이벤트 발생하면
+        uploadTask.on('state_changed',
+            (snapshot)=>{
+                // console.log(snapshot);
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setUploadProgress(progress)
+            },
+            (error)=>{
+                toast.error(error.message);
+            },
+            ()=>{
+                getDownloadURL(uploadTask.snapshot.ref)
+                .then((downloadURL)=>{
+                    setProduct({...product, imageURL: downloadURL});
+                    toast.success('이미지를 성공적으로 업로드했습니다.')
+                })
+            }
+        )
     }
     
     const addProduct = (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        try {
+            // 컬렉션에 추가
+            addDoc(collection(db, "products"), {
+                name: product.name,
+                imageURL: product.imageURL,
+                price: Number(product.price),
+                category: product.category,
+                brand: product.brand,
+                desc: product.desc,
+                createdAt: Timestamp.now().toDate()
+            })
+            
+            setIsLoading(false);
+            setUploadProgress(0);
+            setProduct({...initialState});
+            toast.success('상품을 저장했습니다.');
+            router.push('/admin/all-products');
+        } catch (error) {
+            setIsLoading(false);
+            toast.error(error.message);
+        }
     }
     
     return (
