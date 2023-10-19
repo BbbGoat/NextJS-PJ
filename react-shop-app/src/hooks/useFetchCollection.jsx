@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const useFetchCollection = (collectionName) => {
 
-  const [data, setData] = useState('');
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getCollection = useCallback(() => {
