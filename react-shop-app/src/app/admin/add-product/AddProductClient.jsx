@@ -44,7 +44,8 @@ const AddProductClient = () => {
         setProduct({...product, [name]: value});
     }
     const handleImageChange = (e) => {
-
+        const file = e.target.files[0];
+        
     }
     
     const addProduct = (e) => {
