@@ -11,12 +11,24 @@ import styles from './InnerHeader.module.scss';
 
 import logo from '@/assets/colorful.svg';
 import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { FILTER_BY_SEARCH } from '@/redux/slice/filterSlice';
+import { selectProducts } from '@/redux/slice/productSlice';
 
 const InnerHeader = () => {
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
+  
+  // redux에서 가져오기
+  const products = useSelector(selectProducts);
+
+  // 검색어 필터링 hook 사용
+  useEffect(()=>{
+    dispatch(FILTER_BY_SEARCH({ products, search }));
+  }, [dispatch, products, search])
 
 
   const handleClick = () => {
