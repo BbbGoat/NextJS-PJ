@@ -1,4 +1,3 @@
-'use client'
 import { SORT_PRODUCTS, selectFilteredProducts } from '@/redux/slice/filterSlice';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
