@@ -75,27 +75,27 @@ const ProductList = () => {
             <option value={20}>20개씩 보기</option>
           </select>
         </div>
-
-        <div className={styles.grid}>
-          {currentProducts.length === 0 
-            ? (<div>상품이 없습니다</div>)
-            : 
-            <>
-              {currentProducts.map((product)=>{
-                return (
-                <div key={product.id}><ProductItem {...product}/></div>)
-              })}
-            </>
-          }
-        </div>
-        <Pagination 
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalProducts={filteredProducts.length}
-          productsPerPage={productsPerPage}
-        />
-
       </div>
+
+      <div className={styles.grid}>
+        {currentProducts.length === 0 
+          ? (<div>상품이 없습니다</div>)
+          : 
+          <>
+            {currentProducts.map((product)=>{
+              return (
+              <div key={product.id}><ProductItem {...product}/></div>)
+            })}
+          </>
+        }
+      </div>
+      <Pagination 
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalProducts={filteredProducts.length}
+        productsPerPage={productsPerPage}
+      />
+
 
     </div>
   )
