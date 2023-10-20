@@ -5,8 +5,20 @@ import Image from 'next/image'
 import priceFormat from '@/utils/priceFormat'
 import { Rating } from 'react-simple-star-rating'
 import rocketBadgeIcon from '@/assets/badge-rocket.svg'
+import useFetchDocuments from '@/hooks/useFetchDocuments'
 
 const ProductItem = ({id, name, price, imageURL}) => {
+
+  // hook 호출
+  // const { documents } = useFetchDocuments('reviews', ["productID", "==", id])
+  // console.log('documents', documents)
+
+  // let productRating = 0;
+  // documents.map(doc => {
+  //   productRating = productRating + doc.rate;
+  // })
+  // 리뷰 평균값 구하기 (상품총별점 / 받은리뷰개수)
+  // const rating = productRating / documents.length;
 
   const shortenText = (text, n) => {
     if(text.length > n) {
@@ -38,11 +50,13 @@ const ProductItem = ({id, name, price, imageURL}) => {
             {/* 라이브러리 */}
             <Rating 
               size={17}
-              initialValue={3}
+              initialValue={1}
+              // initialValue={Number.isNaN(rating) ? 0 : rating}
               readonly
             />
             <span className={styles.ratingCount}>
-              (3)
+              (1)
+              {/* ({documents.length}) */}
             </span>
           </div>
         </div>
