@@ -14,10 +14,15 @@ const useFetchDocuments = (collectionName, arg) => {
     // DB에서 정보 가져오기
     const q = query(collection(db, collectionName), where(arg[0], arg[1], arg[2]));
     const querySnapshot = await getDocs(q);
+    
     // 가져온 데이터 Array에 담기
     let documentsArray = [];
     querySnapshot.forEach(doc=>{
-      documentsArray.push(doc.data());
+      const data = {
+        id: doc.id,
+        ...doc.data()
+      }
+      documentsArray.push(data);
     })
 
     setDocuments(documentsArray);
