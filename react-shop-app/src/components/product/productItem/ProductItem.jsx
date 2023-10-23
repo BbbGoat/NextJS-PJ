@@ -31,7 +31,7 @@ const ProductItem = ({id, name, price, imageURL}) => {
   
   return (
     <div className={styles.grid}>
-      <Link href={`/product-dtails/${id}`}>
+      <Link href={`/product-details/${id}`}>
         <div className={styles.img}>
           <Image src={imageURL} alt={name} width={265} height={265} />
         </div>

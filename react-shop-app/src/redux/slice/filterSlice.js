@@ -82,6 +82,8 @@ const filterSlice = createSlice({
                     return b.price - a.price;
                 })
             }
+
+            state.filteredProducts = tempProducts;
         },
         FILTER_BY_SEARCH: (state, action) => {
             const { products, search } = action.payload;

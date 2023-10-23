@@ -16,8 +16,10 @@ const ProductList = () => {
     dispatch(SORT_PRODUCTS({products: filteredProducts, sort}));
   }, [dispatch, sort])
 
+  // 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(10);
+  // 상품 몇개씩 보여줄지 설정
+  const [productsPerPage, setProductsPerPage] = useState(1);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
