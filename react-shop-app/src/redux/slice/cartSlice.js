@@ -72,14 +72,60 @@ const cartSlice = createSlice({
         SAVE_URL: (state, action) => {
             // URL 저장
             state.previousURL = action.payload;
+        },
+        DECREASE_CART: (state, action) => {
+            const productIndex = state.cartItems.findIndex(
+                (item) => item.id === action.payload.id
+            )
+
+            // 상품개수가 1개 초과일 때만 빼기 가능
+            if (state.cartItems[productIndex].cartQuantity > 1) {
+                state.cartItems[productIndex].cartQuantity -= 1;
+                toast.success(`${action.payload.name} 개수 -1`)
+            }
+            // 상품개수가 1개일 경우 아예 지우기
+            else if (state.cartItems[productIndex].cartQuantity === 1) {
+                // 해당 상품 제외한 나머지 상품들 새배열에 담기
+                const newCartItem = state.cartItems.filter((item)=>item.id !== action.payload.id)
+
+                state.cartItems = newCartItem;
+                toast.success(`${action.payload.name}이 장바구니에서 삭제되었습니다.`);
+            }
+
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        },
+        INCREASE_CART: (state, action) => {
+            const productIndex = state.cartItems.findIndex(
+                (item) => item.id === action.payload.id
+            )
+            state.cartItems[productIndex].cartQuantity += 1;
+            toast.success(`${action.payload.name} 개수 +1`)
+
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        },
+        REMOVE_FROM_CART: (state, action) => {
+            const newCartItem = state.cartItems.filter(
+                (item) => item.id !== action.payload.id
+            )
+
+            state.cartItems = newCartItem;
+            toast.success(`${action.payload.name}이 장바구니에서 삭제되었습니다.`);
+
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        },
+        CLEAR_CART: (state, action) => {
+            state.cartItems = [];
+            toast.success('장바구니가 비었습니다.');
+
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         }
     }
 })
 
-export const { ADD_TO_CART, CALCULATE_TOTAL_QUANTITY, CALCULATE_SUBTOTAL } = cartSlice.actions;
+export const { ADD_TO_CART, CALCULATE_TOTAL_QUANTITY, CALCULATE_SUBTOTAL, SAVE_URL, DECREASE_CART, REMOVE_FROM_CART, CLEAR_CART, INCREASE_CART } = cartSlice.actions;
 
 export const selectCartItems = (state) => state.cart.cartItems;
 export const selectCartTotalQuantity = (state) => state.cart.cartTotalQuantity;
-export const selectCartTotalAmount = (state) => state.cart.CartTotalAmount;
+export const selectCartTotalAmount = (state) => state.cart.cartTotalAmount;
 
 export default cartSlice.reducer;
