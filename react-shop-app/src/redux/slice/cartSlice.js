@@ -94,15 +94,6 @@ const cartSlice = createSlice({
 
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         },
-        INCREASE_CART: (state, action) => {
-            const productIndex = state.cartItems.findIndex(
-                (item) => item.id === action.payload.id
-            )
-            state.cartItems[productIndex].cartQuantity += 1;
-            toast.success(`${action.payload.name} 개수 +1`)
-
-            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-        },
         REMOVE_FROM_CART: (state, action) => {
             const newCartItem = state.cartItems.filter(
                 (item) => item.id !== action.payload.id
@@ -118,7 +109,17 @@ const cartSlice = createSlice({
             toast.success('장바구니가 비었습니다.');
 
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-        }
+        },
+        // 내가 임의로 추가한 장바구니 +1 기능 함수
+        INCREASE_CART: (state, action) => {
+            const productIndex = state.cartItems.findIndex(
+                (item) => item.id === action.payload.id
+            )
+            state.cartItems[productIndex].cartQuantity += 1;
+            toast.success(`${action.payload.name} 개수 +1`)
+
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        },
     }
 })
 
