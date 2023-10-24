@@ -12,6 +12,8 @@ import listCashIcon from "@/assets/list-cash-icon.png";
 import Button from "@/components/button/Button";
 import useFetchDocuments from "@/hooks/useFetchDocuments";
 import ProductReviewItem from "@/components/product/productReviewItem/ProductReviewItem";
+import { useDispatch } from "react-redux";
+import { ADD_TO_CART, CALCULATE_TOTAL_QUANTITY } from "@/redux/slice/cartSlice";
 
 const ProductDetailsClient = () => {
     const { id } = useParams();
@@ -23,8 +25,13 @@ const ProductDetailsClient = () => {
     // => 필드이름 productID가 실제 프로덕트 id와 같은 document만 찾아서 가져오기
 
     const [count, setCount] = useState(1);
+    
+    const dispatch = useDispatch();
 
-    const addToCart = () => {};
+    const addToCart = () => {
+        dispatch(ADD_TO_CART({...product, quantity: count}))
+        dispatch(CALCULATE_TOTAL_QUANTITY());
+    };
 
     const today = new Date();
     const tomorrow = new Date(today.setDate(today.getDate() + 1));
