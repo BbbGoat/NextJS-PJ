@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/navigation'
 import { SAVE_BILLING_ADDRESS, SAVE_SHIPPING_ADDRESS } from '@/redux/slice/checkoutSlice'
 import Heading from '@/components/heading/Heading'
+import Button from '@/components/button/Button'
 
 const initialAddressState = {
     name: '',
@@ -21,16 +22,16 @@ const CheckoutAddressClient = () => {
     const [billingAddress, setBillingAddress] = useState({
         ...initialAddressState
     })
-
+    
     const dispatch = useDispatch();
     const router = useRouter();
 
     const handleShipping = (e) => {
-        const {name, value} = e.target.value;
+        const {name, value} = e.target;
         setShippingAddress({...shippingAddress, [name]:value})
     }
     const handleBilling = (e) => {
-        const {name, value} = e.target.value;
+        const {name, value} = e.target;
         setBillingAddress({...billingAddress, [name]:value})
     }
     const handleSubmit = (e) => {
@@ -96,7 +97,7 @@ const CheckoutAddressClient = () => {
                     required
                     name='name'
                     value={billingAddress.name}
-                    onChange={(e)=>handleShipping(e)}
+                    onChange={(e)=>handleBilling(e)}
                 />
                 
                 <label>상세주소</label>
@@ -106,7 +107,7 @@ const CheckoutAddressClient = () => {
                     required
                     name='line'
                     value={billingAddress.line}
-                    onChange={(e)=>handleShipping(e)}
+                    onChange={(e)=>handleBilling(e)}
                 />
 
                 <label>도시</label>
@@ -116,7 +117,7 @@ const CheckoutAddressClient = () => {
                     required
                     name='city'
                     value={billingAddress.city}
-                    onChange={(e)=>handleShipping(e)}
+                    onChange={(e)=>handleBilling(e)}
                 />
 
                 <label>우편번호</label>
@@ -126,8 +127,11 @@ const CheckoutAddressClient = () => {
                     required
                     name='postalCode'
                     value={billingAddress.postalCode}
-                    onChange={(e)=>handleShipping(e)}
+                    onChange={(e)=>handleBilling(e)}
                 />
+                <Button type='submit'>
+                    주문하기
+                </Button>
             </div>
         </form>
 
