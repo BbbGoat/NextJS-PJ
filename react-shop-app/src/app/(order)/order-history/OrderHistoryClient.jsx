@@ -20,7 +20,6 @@ const OrderHistoryClient = () => {
 
     useEffect(()=>{
         dispatch(STORE_ORDERS(data));
-
     }, [dispatch, data]);
 
     const orders = useSelector(selectOrderHistory);

@@ -1,17 +1,10 @@
 import React from 'react'
+import OrderDetailsClient from './OrderDetailsClient'
 
-const OrderDetails = ({ params, searchParams }) => {
-  
-  const { id } = params;
-  const { hello } = searchParams;
-
-  console.log(id, hello)
+const OrderDetails = () => {
   
   return (
-    <div>
-      {id}
-      {hello}
-    </div>
+    <OrderDetailsClient />
   )
 }
 
