@@ -1,10 +1,10 @@
 import React from 'react'
+import ReviewProductClient from './ReviewProductClient'
 
 const ReviewProduct = () => {
   return (
-    <div>ReviewProduct</div>
+    <ReviewProductClient />
   )
 }
 
 export default ReviewProduct
-rafce
