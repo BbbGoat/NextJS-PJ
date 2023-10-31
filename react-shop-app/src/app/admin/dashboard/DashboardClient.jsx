@@ -11,6 +11,7 @@ import useFetchCollection from '@/hooks/useFetchCollection'
 import Heading from '@/components/heading/Heading'
 import InfoBox from '@/components/infoBox/InfoBox'
 import priceFormat from '@/utils/priceFormat'
+import Chart from '@/components/chart/Chart'
 
 // 아이콘 가져오기
 const earningIcon = <AiFillDollarCircle size={30} color='#b624ff' />;
@@ -22,6 +23,7 @@ const DashboardClient = () => {
     const dispatch = useDispatch();
     const products = useFetchCollection('products');
     const { data } = useFetchCollection('orders');
+
     const totalOrderAmount = useSelector(selectTotalOrderAmount);
     const orders = useSelector(selectOrderHistory);
     
@@ -48,7 +50,7 @@ const DashboardClient = () => {
             />
             <InfoBox 
                 cardClass={`${styles.card} ${styles.card2}`}
-                title={'총상품'}
+                title={'총 상품'}
                 count={`${products.data.length}개`}
                 icon={productIcon}
             />
@@ -58,6 +60,9 @@ const DashboardClient = () => {
                 count={`${orders.length}건`}
                 icon={ordersIcon}
             />
+        </div>
+        <div>
+            <Chart />
         </div>
 
     </div>
