@@ -13,6 +13,11 @@ import Link from 'next/link';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import Pagination from '@/components/pagination/Pagination';
 import Image from 'next/image';
+import Notiflix from 'notiflix';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db, storage } from '@/firebase/firebase';
+import { deleteObject, ref } from 'firebase/storage';
+import { toast } from 'react-toastify';
 
 const AllProductsClient = () => {
 
@@ -49,7 +54,42 @@ const AllProductsClient = () => {
       )
     }, [dispatch, products, search])
 
-    const confirmDelete = (id, imageURL) => {}
+    const confirmDelete = (id, imageURL) => {
+        // Notiflix 라이브러리 사용
+        Notiflix.Confirm.show(
+            "상품 삭제하기",
+            "이 상품을 삭제하게 됩니다.",
+            "삭제",
+            "취소",
+            function okCb() {
+                deleteProduct(id, imageURL)
+            },
+            function cancelCb() {
+                console.log("삭제가 취소되었습니다.")
+            },
+            {
+                width: "320px",
+                borderRadius: '3px',
+                titleColor: '#4385F4',
+                okButtonBackground: '#4385F4',
+                cssAnimationStyle: 'zoom'
+            }
+        )
+    }
+
+    const deleteProduct = async (id, imageURL) => {
+        try {
+            // firestore 도큐멘트 지우기
+            await deleteDoc(doc(db, "products", id));
+
+            // storage 이미지 지우기
+            const storageRef = ref(storage, imageURL);
+            await deleteObject(storageRef);
+            toast.success("상품을 성공적으로 삭제했습니다.");
+        } catch (error) {
+            toast.error(error.message);
+        }
+    } 
     
     
   return (
