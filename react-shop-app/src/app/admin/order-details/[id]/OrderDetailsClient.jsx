@@ -31,10 +31,7 @@ const OrderDetailsClient = () => {
                         <b>주문 상태</b> {order.orderStatus}
                     </p>
                     <p>
-                        <b>배송 주소</b> 
-                        {order.shippingAddress.line}
-                        {" "}
-                        {order.shippingAddress.city}
+                        <b>배송 주소</b> {order.shippingAddress.line}{" "}{order.shippingAddress.city}
                     </p>
                 </div>
 

@@ -1,5 +1,5 @@
-import OrderDetailsClient from '@/app/(order)/order-details/[id]/OrderDetailsClient'
 import React from 'react'
+import OrderDetailsClient from './OrderDetailsClient'
 
 const OrderDetails = () => {
   return (
