@@ -1,8 +1,9 @@
+import OrderDetailsClient from '@/app/(order)/order-details/[id]/OrderDetailsClient'
 import React from 'react'
 
 const OrderDetails = () => {
   return (
-    <div>OrderDetails</div>
+    <OrderDetailsClient />
   )
 }
 
