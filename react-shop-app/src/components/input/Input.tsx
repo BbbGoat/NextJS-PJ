@@ -1,7 +1,25 @@
 import classNames from 'classnames'
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styles from './Input.module.scss'
 import Icon from '../icon/Icon'
+
+interface IInputProps {
+  id: string;
+  label: string;
+  name?: string;
+  labelVisible?: boolean;
+  icon?: 'letter' | 'lock' | 'show' | 'hide';
+  email?: boolean;
+  password?: boolean;
+  placeholder?: string;
+  readonly?: boolean;
+  disabled?: boolean;
+  value?: string;
+  error?: {message: string};
+  className?: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  [x: string]: any;
+}
 
 const Input = ({
   id,
@@ -19,7 +37,7 @@ const Input = ({
   className = '',
   onChange,
   ...restProps
-}) => {
+}: IInputProps) => {
 
   const [inputValue, setInputValue] = useState(value ? value : '');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -36,10 +54,10 @@ const Input = ({
     return 'text';
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
 
-    // 파라미터에 event 객체만 내려주면 됨 (상위 Input 컴포넌트에서 e => set변경함수()를 props로 내려줬기 때문에 여기서 값을 업데이트 해준다)
+    // 파라미터에 event 객체만 내려주면 됨 (상위 컴포넌트에서 e => set변경함수()를 props로 내려줬기 때문에 여기서 값을 업데이트 해준다)
     onChange(e)
   }
 
