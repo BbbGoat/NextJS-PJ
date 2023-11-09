@@ -2,7 +2,11 @@ import React from 'react'
 import styles from './Loader.module.scss';
 import { RotatingLines } from 'react-loader-spinner';
 
-const Loader = ({basic}) => {
+interface ILoaderProps {
+  basic?: boolean;
+}
+
+const Loader = ({basic}: ILoaderProps) => {
 
   if (basic) {
     return(

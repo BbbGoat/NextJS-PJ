@@ -2,6 +2,15 @@ import classNames from 'classnames'
 import React from 'react'
 import styles from './Button.module.scss'
 
+interface IButtonProps {
+  type?: 'submit' | 'reset' | 'button' | undefined;
+  secondary?: boolean;
+  bgColor?: string;
+  fgColor?: string;
+  width?: string;
+  [x: string]: any;
+}
+
 const Button = ({
   type = 'button',
   secondary = false,
@@ -9,7 +18,7 @@ const Button = ({
   fgColor,
   width,
   ...restProps
-}) => {
+}: IButtonProps) => {
 
   const composeClasses = classNames(
     styles.button,

@@ -21,7 +21,7 @@ const RegisterClient = () => {
 
     const router = useRouter();
 
-    const registerUser = (e) => {
+    const registerUser = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (password != cPassword) {
