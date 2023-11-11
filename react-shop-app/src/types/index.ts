@@ -26,5 +26,9 @@ export interface IOrder {
     userEmail: string;
     userID: string;
     cartItems: TCartItem[];
-    shippingAddress: IShippingAddress; 
+    shippingAddress: IShippingAddress;
+    createdAt: {
+        seconds: number;
+        nanoseconds: number;
+    }
 }

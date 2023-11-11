@@ -2,13 +2,19 @@
 import { db } from '@/firebase/firebase';
 import { Timestamp, doc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { toast } from 'react-toastify';
 import Loader from '../loader/Loader';
 import styles from './ChangeOrderStatus.module.scss'
 import Button from '../button/Button';
+import { IOrder } from '@/types';
 
-const ChangeOrderStatus = ({order, id}) => {
+interface IChangeOrderStatusProps {
+  order: IOrder;
+  id: string;
+}
+
+const ChangeOrderStatus = ({order, id}: IChangeOrderStatusProps) => {
 
   const router = useRouter();
   
@@ -16,7 +22,7 @@ const ChangeOrderStatus = ({order, id}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // 주문 상태 수정 함수
-  const editOrder = (e, id) => {
+  const editOrder = (e: FormEvent<HTMLFormElement>, id: string) => {
     e.preventDefault();
 
     const orderData = {
@@ -40,7 +46,7 @@ const ChangeOrderStatus = ({order, id}) => {
       router.push(`/admin/orders`);
 
     } catch(error) {
-      toast.error(error.message)
+      toast.error(getErrorMessage(error))
       setIsLoading(false);
     }
   }

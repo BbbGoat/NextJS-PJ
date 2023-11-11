@@ -25,14 +25,16 @@ const Header = () => {
       // 로그인함
       if (user) {
 
-        // [ 아이디/패스워드 로그인한 경우 ]
+        // [ 이메일 로그인한 경우 ]
         if (user.displayName === null) {
-          // 1. email에서 @기준으로 앞부분만 남기기
-          const u1 = user.email.substring(0, user.email.indexOf('@'));
-          // 2. 첫글자는 대문자로 바꾼 u1 + 첫글자 지우고 나머지 뒷부분 남긴 u1
-          const uName = u1.charAt(0).toUpperCase() + u1.slice(1);
-          // 3. state에 설정
-          setDisplayName(uName);
+          if(user.email) {
+            // 1. email에서 @기준으로 앞부분만 남기기
+            const u1 = user.email.substring(0, user.email.indexOf('@'));
+            // 2. 첫글자는 대문자로 바꾼 u1 + 첫글자 지우고 나머지 뒷부분 남긴 u1
+            const uName = u1.charAt(0).toUpperCase() + u1.slice(1);
+            // 3. state에 설정
+            setDisplayName(uName);
+          }
         }
         // [ 구글로그인한 경우 ]
         else {
@@ -55,7 +57,7 @@ const Header = () => {
     })
   }, [dispatch, displayName])
 
-  const logoutUser = (e) => {
+  const logoutUser = () => {
     signOut(auth)
     .then(()=>{
       toast.success('로그아웃 되었습니다.');

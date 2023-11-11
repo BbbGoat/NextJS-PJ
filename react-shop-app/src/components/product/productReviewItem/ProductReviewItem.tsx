@@ -3,12 +3,19 @@ import styles from './ProductReviewItem.module.scss'
 import { Rating } from 'react-simple-star-rating'
 import { formatTime } from '@/utils/dayjs'
 
+interface IProductReviewItemProps {
+    rate: number;
+    review: string;
+    reviewDate: string;
+    userName: string;
+}
+
 const ProductReviewItem = ({
     rate,
     review,
     reviewDate,
     userName
-}) => {
+}: IProductReviewItemProps) => {
   return (
     <div className={styles.review}>
         <p className={styles.writer}>

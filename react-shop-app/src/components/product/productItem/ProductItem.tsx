@@ -7,7 +7,14 @@ import { Rating } from 'react-simple-star-rating'
 import rocketBadgeIcon from '@/assets/badge-rocket.svg'
 import useFetchDocuments from '@/hooks/useFetchDocuments'
 
-const ProductItem = ({id, name, price, imageURL}) => {
+interface IProductItemProps {
+  id: string;
+  name: string;
+  price: number;
+  imageURL: string;
+}
+
+const ProductItem = ({id, name, price, imageURL}: IProductItemProps) => {
 
   // hook 호출
   // const { documents } = useFetchDocuments('reviews', ["productID", "==", id])
@@ -20,7 +27,7 @@ const ProductItem = ({id, name, price, imageURL}) => {
   // 리뷰 평균값 구하기 (상품총별점 / 받은리뷰개수)
   // const rating = productRating / documents.length;
 
-  const shortenText = (text, n) => {
+  const shortenText = (text: string, n: number) => {
     if(text.length > n) {
       // text가 n을 초과하면 그 뒤부터는 ...로 표시
       const shortenedText = text.substring(0, n).concat('...');

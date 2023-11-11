@@ -4,14 +4,14 @@ import { RootState } from "../store";
 
 interface IProductState {
     products: IProduct[];
-    minPrice: null | number;
-    maxPrice: null | number;
+    minPrice: number;
+    maxPrice: number;
 }
 
 const initialState: IProductState = {
     products: [],
     minPrice: 0,
-    maxPrice: 1000,
+    maxPrice: 10000,
 };
 
 const productSlice = createSlice({

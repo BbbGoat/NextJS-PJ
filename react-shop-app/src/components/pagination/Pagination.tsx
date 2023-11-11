@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
 import styles from './Pagination.module.scss'
 
+interface IPaginationProps {
+  currentPage: number;
+  productsPerPage: number;
+  setCurrentPage: (page: number) => void; 
+  totalProducts: number;
+}
+
 const Pagination = ({
   currentPage,
   productsPerPage,
   setCurrentPage,
   totalProducts
-}) => {
+}: IPaginationProps) => {
 
   const pageNumbers = [];
   // 현재 최대페이지
@@ -16,7 +23,7 @@ const Pagination = ({
   // 각 페이지열마다 최소페이지
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
 
-  const paginate = (pageNumber) => {
+  const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   }
 

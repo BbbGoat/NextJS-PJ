@@ -1,9 +1,10 @@
 import { SORT_PRODUCTS, selectFilteredProducts } from '@/redux/slice/filterSlice';
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './ProductList.module.scss'
 import ProductItem from '../productItem/ProductItem';
 import Pagination from '@/components/pagination/Pagination';
+import { IProduct } from '@/types';
 
 const ProductList = () => {
 
@@ -12,9 +13,10 @@ const ProductList = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(SORT_PRODUCTS({products: filteredProducts, sort}));
-  }, [dispatch, sort])
+  useEffect(() => {
+    dispatch(SORT_PRODUCTS({ products: filteredProducts, sort }));
+  }, [dispatch, sort]);
+
 
   // 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,8 +30,8 @@ const ProductList = () => {
     indexOfLastProduct
   )
   
-  const isRadioSelected = (value) => sort === value; // => boolean 체크용
-  const handleRadioClick = (e) => setSort(e.target.value);
+  const isRadioSelected = (value: string) => sort === value; // => boolean 체크용
+  const handleRadioClick = (e: ChangeEvent<HTMLInputElement>) => setSort(e.target.value);
   
   return (
     <div className={styles.productList}>
