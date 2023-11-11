@@ -1,6 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
-const initialState = {
+interface IAuthState {
+    isLoggedIn: boolean;
+    email: null | string;
+    userName: null | string;
+    userID: null | string;
+}
+
+const initialState: IAuthState = {
     isLoggedIn: false,
     email: null,
     userName: null,
@@ -31,9 +39,9 @@ const authSlice = createSlice({
 export const {SET_ACTIVE_USER, REMOVE_ACTIVE_USER} = authSlice.actions;
 
 // initialState 내보내기
-export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
-export const selectEmail = (state) => state.auth.email;
-export const selectUserName = (state) => state.auth.userName;
-export const selectUserId = (state) => state.auth.userID;
+export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
+export const selectEmail = (state: RootState) => state.auth.email;
+export const selectUserName = (state: RootState) => state.auth.userName;
+export const selectUserId = (state: RootState) => state.auth.userID;
 
 export default authSlice.reducer;

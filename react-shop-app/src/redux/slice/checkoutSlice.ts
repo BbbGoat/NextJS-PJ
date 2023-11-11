@@ -1,8 +1,10 @@
+import { IShippingAddress } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 const initialState = {
-    shippingAddress: {},
-    billingAddress: {}
+    shippingAddress: {} as IShippingAddress,
+    billingAddress: {} as IShippingAddress
 }
 
 const checkoutSlice = createSlice({
@@ -21,7 +23,7 @@ const checkoutSlice = createSlice({
 
 
 export const {SAVE_SHIPPING_ADDRESS, SAVE_BILLING_ADDRESS} = checkoutSlice.actions;
-export const selectShippingAddress = (state) => state.checkout.shippingAddress;
-export const selectBillingAddress = (state) => state.checkout.billingAddress;
+export const selectShippingAddress = (state: RootState) => state.checkout.shippingAddress;
+export const selectBillingAddress = (state: RootState) => state.checkout.billingAddress;
 
 export default checkoutSlice.reducer;
