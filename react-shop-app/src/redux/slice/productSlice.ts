@@ -1,6 +1,14 @@
+import { IProduct } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
-const initialState = {
+interface IProductState {
+    products: IProduct[];
+    minPrice: null | number;
+    maxPrice: null | number;
+}
+
+const initialState: IProductState = {
     products: [],
     minPrice: 0,
     maxPrice: 1000,
@@ -16,8 +24,8 @@ const productSlice = createSlice({
         GET_PRICE_RANGE(state, action) {
             const { products } = action.payload;
             
-            const array = [];
-            products.map((product) => {
+            const array: number[] = [];
+            products.map((product: IProduct) => {
                 const price = product.price;
                 return array.push(price);
             });
@@ -35,8 +43,8 @@ const productSlice = createSlice({
 export const { STORE_PRODUCTS, GET_PRICE_RANGE } = productSlice.actions;
 
 // initailstate 내보내기
-export const selectProducts = (state) => state.product.products
-export const selectMinPrice = (state) => state.product.minPrice
-export const selectMaxPrice = (state) => state.product.maxPrice
+export const selectProducts = (state: RootState) => state.product.products
+export const selectMinPrice = (state: RootState) => state.product.minPrice
+export const selectMaxPrice = (state: RootState) => state.product.maxPrice
 
 export default productSlice.reducer;
