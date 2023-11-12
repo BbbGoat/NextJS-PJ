@@ -6,7 +6,13 @@ import { formatTime } from "@/utils/dayjs";
 import Button from "@/components/button/Button";
 import Link from "next/link";
 
-const CheckoutSuccess = async ({ searchParams }) => {
+interface ICheckoutSuccessProps {
+  searchParams: {
+    orderId: string;
+  }
+}
+
+const CheckoutSuccess = async ({ searchParams }: ICheckoutSuccessProps) => {
   const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY;
 
   const url = `https://api.tosspayments.com/v1/payments/orders/${searchParams.orderId}`;

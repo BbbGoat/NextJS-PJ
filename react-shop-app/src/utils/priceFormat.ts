@@ -1,4 +1,4 @@
-const priceFormat = (price) => {
+const priceFormat = (price: number) => {
     return price.toLocaleString('ko-kr');
 }
 
