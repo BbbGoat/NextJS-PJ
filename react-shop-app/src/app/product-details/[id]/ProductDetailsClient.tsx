@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { ADD_TO_CART, CALCULATE_TOTAL_QUANTITY } from "@/redux/slice/cartSlice";
 
 const ProductDetailsClient = () => {
-    const { id } = useParams();
+    const { id } = useParams() as { id: string };
 
     const { document: product } = useFetchDocument("products", id);
     // => document 사용할 때 이름을 product로 사용함

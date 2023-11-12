@@ -26,7 +26,7 @@ const OrderHistoryClient = () => {
     const userID = useSelector(selectUserId);
     const filteredOrders = orders.filter((order)=>order.userID === userID)
 
-    const handleClick = (id) => {
+    const handleClick = (id: string) => {
         // 주문 상세페이지로 이동
         router.push(`/order-details/${id}`);
     }

@@ -1,37 +1,55 @@
 'use client'
-import Button from '@/components/button/Button';
-import Heading from '@/components/heading/Heading';
-import Loader from '@/components/loader/Loader';
-import { db, storage } from '@/firebase/firebase';
-import useFetchDocument from '@/hooks/useFetchDocument';
-import { Timestamp, doc, setDoc } from 'firebase/firestore';
-import { deleteObject, ref } from 'firebase/storage';
-import { useParams } from 'next/navigation'
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
-import styles from '../../add-product/AddProduct.module.scss'
-import { categories } from '../../add-product/AddProductClient';
-import { toast } from 'react-toastify';
+import React, { ChangeEvent, FormEvent, useState } from 'react'
+import styles from './AddProduct.module.scss'
+import { useRouter } from 'next/navigation'
+import Loader from '@/components/loader/Loader'
+import Heading from '@/components/heading/Heading'
+import Button from '@/components/button/Button'
+import { db, storage } from '@/firebase/firebase'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { toast } from 'react-toastify'
+import { Timestamp, addDoc, collection } from 'firebase/firestore'
 
-const EditProductClient = () => {
 
-    const {id} = useParams();
+export const categories = [
+    {id: 1, name: 'Laptop'},
+    {id: 2, name: 'Electronics'},
+    {id: 3, name: 'Fashion'},
+    {id: 4, name: 'Phone'},
+    {id: 5, name: 'Movies & Television'},
+    {id: 6, name: 'Home & Kitchen'},
+    {id: 7, name: 'Automotive'},
+    {id: 8, name: 'Software'},
+    {id: 9, name: 'Video Games'},
+    {id: 10, name: 'Sports & Outdoor'},
+    {id: 11, name: 'Toys & Games'},
+    {id: 12, name: 'Industrial & Scientific'},
+]
+
+const initialState = {
+    name: '',
+    imageURL: '',
+    price: 0,
+    category: '',
+    brand: '',
+    desc: '',
+}
+
+const AddProductClient = () => {
+
+    const [product, setProduct] = useState({...initialState});
+
     const [uploadProgress, setUploadProgress] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-    
-    const {document} = useFetchDocument('products', id);
-    const [product, setProduct] = useState(document);
-    
-    useEffect(()=>{
-        setProduct(document);
-    }, [document])
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
         setProduct({...product, [name]: value});
     }
-    const handleImageChange = (e) => {
+    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) return;
+
         const file = e.target.files[0];
 
         const storageRef = ref(storage, `images/${Date.now()}${file.name}`);
@@ -57,35 +75,29 @@ const EditProductClient = () => {
         )
     }
     
-    const editProduct = (e) => {
+    const addProduct = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
-
-        // 신규 이미지 경로가 다를 경우 기존 이미지 지우기
-        if (product.imageURL !== document.imageURL) {
-            const storageRef = ref(storage.document.imageURL);
-            deleteObject(storageRef)
-        }
-
         try {
-            // 도큐먼트에 수정
-            setDoc(doc(db, "products", id), {
+            // 컬렉션에 추가
+            addDoc(collection(db, "products"), {
                 name: product.name,
                 imageURL: product.imageURL,
                 price: Number(product.price),
                 category: product.category,
                 brand: product.brand,
                 desc: product.desc,
-                createdAt: document.createdAt,
-                editedAt: Timestamp.now().toDate()
+                createdAt: Timestamp.now().toDate()
             })
             
             setIsLoading(false);
-            toast.success('상품이 성공적으로 수정되었습니다.');
+            setUploadProgress(0);
+            setProduct({...initialState});
+            toast.success('상품을 저장했습니다.');
             router.push('/admin/all-products');
         } catch (error) {
             setIsLoading(false);
-            toast.error(error.message);
+            toast.error(getErrorMessage(error));
         }
     }
     
@@ -93,10 +105,8 @@ const EditProductClient = () => {
         <>
             {isLoading && <Loader />}
             <div className={styles.product}>
-                <Heading title="상품 수정하기" />
-                {product === null ? <Loader /> : (
-
-                <form onSubmit={editProduct}>
+                <Heading title="새 상품 생성하기" />
+                <form onSubmit={addProduct}>
                     <label>상품 이름:</label>
                     <input
                         type='text'
@@ -126,6 +136,7 @@ const EditProductClient = () => {
                             placeholder='상품 이미지'
                             accept='image/*'
                             name='image'
+                            required
                             onChange={(e)=>handleImageChange(e)}
                         />
 
@@ -191,13 +202,12 @@ const EditProductClient = () => {
                     >
                     </textarea>
                     <Button type='submit'>
-                        상품 수정
+                        상품 생성
                     </Button>
                 </form>
-                )}
             </div>
         </>
     )
 }
 
-export default EditProductClient
+export default AddProductClient

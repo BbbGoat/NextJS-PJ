@@ -12,13 +12,23 @@ interface ICheckoutSuccessProps {
   }
 }
 
+interface IPayment {
+  orderName: string;
+  orderId: string;
+  approvedAt: string;
+  card: {
+    number: number;
+    amount: number;
+  }
+}
+
 const CheckoutSuccess = async ({ searchParams }: ICheckoutSuccessProps) => {
   const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY;
 
   const url = `https://api.tosspayments.com/v1/payments/orders/${searchParams.orderId}`;
   const basicToken = Buffer.from(`${secretKey}:`, "utf-8").toString("base64");
 
-  const payment = await fetch(url, {
+  const payment: IPayment = await fetch(url, {
     headers: {
       Authorization: `Basic ${basicToken}`,
       "Content-Type": "application/json"

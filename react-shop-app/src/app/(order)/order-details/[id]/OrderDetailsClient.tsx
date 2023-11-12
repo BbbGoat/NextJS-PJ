@@ -1,23 +1,23 @@
 'use client'
 import React from 'react'
 import styles from './OrderDetails.module.scss'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import useFetchDocument from '@/hooks/useFetchDocument'
 import Heading from '@/components/heading/Heading'
 import Loader from '@/components/loader/Loader'
 import priceFormat from '@/utils/priceFormat'
 import Button from '@/components/button/Button'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { TCartItem } from '@/types'
 
 const OrderDetailsClient = () => {
 
-    const { id } = useParams();
+    const { id } = useParams() as { id: string };
     const { document: order } = useFetchDocument("orders", id);
 
     const router = useRouter();
 
-    const handleClick = (id) => {
+    const handleClick = (id: string) => {
         router.push(`/review-product/${id}`)
     }
     
@@ -61,7 +61,7 @@ const OrderDetailsClient = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {order.cartItems.map((item, index)=>{
+                            {order.cartItems.map((item: TCartItem, index: number)=>{
                                 const { id, name, price, imageURL, cartQuantity } = item;
                                 return (
                                     <tr key={id}>

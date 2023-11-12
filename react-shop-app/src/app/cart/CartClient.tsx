@@ -11,6 +11,7 @@ import priceFormat from '@/utils/priceFormat'
 import Button from '@/components/button/Button'
 import Image from 'next/image'
 import { FaTrashAlt } from 'react-icons/fa'
+import { TCartItem } from '@/types'
 
 const CartClient = () => {
 
@@ -23,14 +24,14 @@ const CartClient = () => {
 
     const isLoggedIn = useSelector(selectIsLoggedIn);
 
-    const increaseCart = (cart) => {
+    const increaseCart = (cart: TCartItem) => {
         // dispatch(ADD_TO_CART(cart));
         dispatch(INCREASE_CART(cart));
     }
-    const decreaseCart = (cart) => {
+    const decreaseCart = (cart: TCartItem) => {
         dispatch(DECREASE_CART(cart));
     }
-    const removeFromCart = (cart) => {
+    const removeFromCart = (cart: TCartItem) => {
         dispatch(REMOVE_FROM_CART(cart))
     }
     const clearCart = () => {

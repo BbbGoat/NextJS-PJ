@@ -54,7 +54,7 @@ const AllProductsClient = () => {
       )
     }, [dispatch, products, search])
 
-    const confirmDelete = (id, imageURL) => {
+    const confirmDelete = (id: string, imageURL: string) => {
         // Notiflix 라이브러리 사용
         Notiflix.Confirm.show(
             "상품 삭제하기",
@@ -77,7 +77,7 @@ const AllProductsClient = () => {
         )
     }
 
-    const deleteProduct = async (id, imageURL) => {
+    const deleteProduct = async (id: string, imageURL: string) => {
         try {
             // firestore 도큐멘트 지우기
             await deleteDoc(doc(db, "products", id));
@@ -87,7 +87,7 @@ const AllProductsClient = () => {
             await deleteObject(storageRef);
             toast.success("상품을 성공적으로 삭제했습니다.");
         } catch (error) {
-            toast.error(error.message);
+            toast.error(getErrorMessage(error));
         }
     } 
     

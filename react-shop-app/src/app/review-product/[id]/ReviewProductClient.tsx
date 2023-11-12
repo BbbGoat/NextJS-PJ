@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import style from './ReviewProduct.module.scss'
 import { useParams, useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
@@ -21,13 +21,13 @@ const ReviewProductClient = () => {
 
     const router = useRouter();
 
-    const { id } = useParams();
+    const { id } = useParams() as { id: string };
     const userID = useSelector(selectUserId);
     const userName = useSelector(selectUserName);
 
     const { document: product } = useFetchDocument("products", id);
 
-    const submitReview = (e) => {
+    const submitReview = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const today = new Date();
@@ -48,7 +48,7 @@ const ReviewProductClient = () => {
             router.push(`/product-details/${id}`);
         }
         catch (error) {
-            toast.error(error.message);
+            toast.error(getErrorMessage(error));
         }
     }
 
