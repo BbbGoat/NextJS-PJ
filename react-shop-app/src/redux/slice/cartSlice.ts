@@ -11,9 +11,9 @@ interface ICartState {
 }
 
 const initialState: ICartState = {
-    cartItems: typeof window !== undefined ? 
-    localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')!) : []
-    : [],
+    cartItems: typeof window !== "undefined" ?
+        localStorage.getItem("cartItems")
+            ? JSON.parse(localStorage.getItem("cartItems")!) : [] : [],
     cartTotalQuantity: 0,
     cartTotalAmount: 0,
     previousURL: ""
