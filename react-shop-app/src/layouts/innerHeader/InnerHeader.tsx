@@ -43,7 +43,7 @@ const InnerHeader = () => {
           <Image src={logo} alt="logo" width={211} height={48} priority />
         </Link>
       </h1>
-      {/* <!-- 카테로기버튼 --> */}
+      {/* <!-- 카테고리버튼 --> */}
       <button type="button" className={styles.buttonCategory}>카테고리</button>
       {/* <!-- 검색 폼  --> */}
       <form action="/" className={styles.searchForm}>
